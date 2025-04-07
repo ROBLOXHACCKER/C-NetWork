@@ -1,33 +1,32 @@
 #include "../include/utils.h"
 
-int main()
+int main(void)
 {
-    int sock;
     struct sockaddr_in server;
-    int porta = 10000;
-    if((sock = socket(AF_INET, SOCK_STREAM ,0)) < 0)
-    {
-        perror("Errore: socket non creato");
-        exit(-1);
-    };
+    int sock;
 
-    server.sin_family = AF_INET;
-    server.sin_addr.s_addr = INADDR_ANY;
-    server.sin_port = htons(porta);
+    //Create Server
+    server.sin_family = AF_INET; //IPv4
+    server.sin_addr.s_addr = INADDR_ANY; //any free IP
+    server.sin_port = htons(PORT); //server port
 
-    if(bind(sock, (struct sockaddr*)&server, sizeof(server))< 0)
-    {
-        perror("bind non completato");
-        exit(-1);
-    }
+    //Create Socket
+    sock = Socket(AF_INET, SOCK_STREAM, 0); //IPv4 | TCP | Automatic Protocol
+    
+    //Bind
+    bind(sock, (struct sockaddr *)&server, sizeof(server));
 
-    if(getsockname(sock, (struct sockaddr*)&server, sizeof(server)) < 0)
-    {
-        perror("Errore: bind");
-        exit(-1);
-    }
+    //CheckBind
+    getsockname(sock, (struct sockaddr *)&server, sizeof(server));
 
+    //Listen
     listen(sock, MAX_CONNECTIONS);
 
+    
 
+
+
+
+
+    return 0;
 }

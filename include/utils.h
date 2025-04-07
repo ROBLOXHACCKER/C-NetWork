@@ -8,3 +8,4 @@
 #include <arpa/inet.h>  
 
 #define MAX_CONNECTIONS 10
+#define PORT 10000
